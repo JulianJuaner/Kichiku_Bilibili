@@ -49,10 +49,10 @@ head = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',
     }
 
+workbook = xlsxwriter.Workbook('pop.xlsx')
+worksheet = workbook.add_worksheet()
 
 def spider(url):
-    workbook = xlsxwriter.Workbook('pop.xlsx')
-    worksheet = workbook.add_worksheet()
     global retry, aid, view, cid
     print(url)
     try:
@@ -79,15 +79,6 @@ def spider(url):
             view = np.append(view, m['stat']['view'])
             cid = np.append(cid, m['owner']['mid'])
 
-        for it in range(len(aid)):
-            worksheet.write(it, 0, aid[it])
-            worksheet.write(it, 1, cid[it])
-            worksheet.write(it, 2, view[it])
-
-        aid = np.empty(0)
-        view = np.empty(0)
-        cid = np.empty(0)
-        workbook.close()
 
 def video_av_extract():
     i=1
@@ -102,7 +93,7 @@ def video_av_extract():
     time1 = time.time()
     #video_counter = 547653
     #48010
-    for i in range(10000, 20000):
+    for i in range(10000, 50000):
         url ='https://api.bilibili.com/x/web-interface/newlist?callback=jqueryCallback_bili_4112257624761402&rid=71&type=0&pn=' +str(i)+'&ps=20'
         urls.append(url)
     print('url loaded.')
@@ -119,7 +110,12 @@ def video_av_extract():
     #print('here!')
     for m in urls:
         spider(m)
+    for it in range(len(aid)):
+        worksheet.write(it, 0, aid[it])
+        worksheet.write(it, 1, cid[it])
+        worksheet.write(it, 2, view[it])
 
+    workbook.close()
     np.save("./videoid/pop.npy", aid) 
         #print('here!')
 
