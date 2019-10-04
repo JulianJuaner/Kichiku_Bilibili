@@ -51,7 +51,8 @@ head = {
 
 workbook = xlsxwriter.Workbook('pop.xlsx')
 worksheet = workbook.add_worksheet()
-
+print("sleeping...")
+time.sleep(7000)
 def spider(url):
     global retry, aid, view, cid
     print(url)
@@ -68,7 +69,7 @@ def spider(url):
 
     JSON = json.loads(JSON)
     #print(json.dumps(JSON, indent=4, ensure_ascii=False))
-    time.sleep(0.1)
+    time.sleep(0.5)
     #print(url)
     if JSON["code"] == 0:
         #video_counter += 1
@@ -93,7 +94,7 @@ def video_av_extract():
     time1 = time.time()
     #video_counter = 547653
     #48010
-    for i in range(10000, 50000):
+    for i in range(10000, 20000):
         url ='https://api.bilibili.com/x/web-interface/newlist?callback=jqueryCallback_bili_4112257624761402&rid=71&type=0&pn=' +str(i)+'&ps=20'
         urls.append(url)
     print('url loaded.')
