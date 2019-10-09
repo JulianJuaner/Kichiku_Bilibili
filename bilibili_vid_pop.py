@@ -21,7 +21,7 @@ time1 = time.time()
 #video_counter = 547653
 #48010
 number = 0
-data = pd.read_csv('popup.csv')
+data = pd.read_csv('./tables/popup.csv')
 data_id = data.iloc[:,0]
 print(len(data_id))
 
@@ -53,7 +53,7 @@ def spider(url):
 
     JSON = json.loads(JSON)
     #print(json.dumps(JSON, indent=4, ensure_ascii=False))
-    time.sleep(0.3)
+    time.sleep(0.2)
     #print(url)
     if JSON["code"] == 0:
         #video_counter += 1
@@ -77,6 +77,6 @@ for m in urls:
     #print('here!')
 
 df = pd.DataFrame(fanslist)
-df_csv = pd.read_csv('popup.csv')
+df_csv = pd.read_csv('./tables/popup.csv')
 df_csv['fans'] = df
-df_csv.to_csv('popup.csv', index=False, mode= 'w')
+df_csv.to_csv('./tables/popup.csv', index=False, mode= 'w')
