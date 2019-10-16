@@ -49,10 +49,10 @@ head = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',
     }
 
-workbook = xlsxwriter.Workbook('pop.xlsx')
+workbook = xlsxwriter.Workbook('makeup.xlsx')
 worksheet = workbook.add_worksheet()
 print("sleeping...")
-time.sleep(7000)
+#time.sleep(7000)
 def spider(url):
     global retry, aid, view, cid
     print(url)
@@ -86,7 +86,7 @@ def video_av_extract():
     urls = []
     zongyi='https://api.bilibili.com/x/web-interface/newlist?callback=jqueryCallback_bili_4112257624761402&rid=71&type=0&pn=' +str(i)+'&ps=20'
     star = 'https://api.bilibili.com/x/web-interface/newlist?callback=jqueryCallback_bili_022573794559991534&rid=137&type=0&pn=' +str(i)+'&ps=20'
-
+    makeup = 'https://api.bilibili.com/x/web-interface/newlist?callback=jqueryCallback_bili_09813198015047164&rid=157&type=0&pn=' +str(i)+'&ps=20'
     tooD='https://api.bilibili.com/x/web-interface/newlist?callback=jqueryCallback_bili_20679987710906045&rid=26&type=0&pn='+str(i)+'&ps=20'
     VOCALOID='https://api.bilibili.com/x/web-interface/newlist?callback=jqueryCallback_bili_6060373409639355&rid=126&type=0&pn='+str(i)+'&ps=20'
     guide='https://api.bilibili.com/x/web-interface/newlist?callback=jqueryCallback_bili_08424519499179617&rid=127&type=0&pn='+str(i)+'&ps=20'
@@ -95,7 +95,7 @@ def video_av_extract():
     #video_counter = 547653
     #48010
     for i in range(10000, 20000):
-        url ='https://api.bilibili.com/x/web-interface/newlist?callback=jqueryCallback_bili_4112257624761402&rid=71&type=0&pn=' +str(i)+'&ps=20'
+        url ='https://api.bilibili.com/x/web-interface/newlist?callback=jqueryCallback_bili_09813198015047164&rid=157&type=0&pn=' +str(i)+'&ps=20'
         urls.append(url)
     print('url loaded.')
     #'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36'
@@ -117,7 +117,7 @@ def video_av_extract():
         worksheet.write(it, 2, view[it])
 
     workbook.close()
-    np.save("./videoid/pop.npy", aid) 
+    np.save("./videoid/makeup.npy", aid) 
         #print('here!')
 
 if __name__ == '__main__':

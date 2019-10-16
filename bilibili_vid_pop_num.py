@@ -79,4 +79,4 @@ for m in urls:
 df = pd.DataFrame(fanslist)
 df_csv = pd.read_csv('./tables/popup_fan.csv')
 df_csv['tot_num'] = df
-df_csv.to_csv('./tables/popup_fan.csv', index=False, mode= 'w')
+df_csv.to_csv('./tablesd/popup_fan.csv', index=False, mode= 'w')
