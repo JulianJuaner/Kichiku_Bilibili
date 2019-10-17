@@ -21,14 +21,12 @@ time1 = time.time()
 #video_counter = 547653
 #48010
 number = 0
-data = pd.read_csv('./tables/popup_fan.csv')
-data_id = data.iloc[:,0]
+data = pd.read_excel(r'tables/data_pts.xlsx')
+data_id = data['av']
 print(len(data_id))
 
 for i in data_id:
-    url = ' https://api.bilibili.com/x/web-interface/card?mid=' + str(i) + '&;jsonp=jsonp&article=true'
-   
-    
+    url = ' https://api.bilibili.com/x/web-interface/view?aid=' + str(i)  
     urls.append(url)
 print('url loaded.')
 #'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36'
@@ -46,7 +44,9 @@ def spider(url):
         if retry == False:
             spider(url)
             retry = True
+            fanslist.append(5)
             return
+        fanslist.append(5)
         return
 
     retry = False
@@ -61,22 +61,30 @@ def spider(url):
         content = JSON["data"]
         print(url)
         #time.sleep(0.02)
-        fans = content["archive_count"]
+        fans = content["copyright"]
         print(fans)
         print("----------",number*100/len(data_id),"%","----------")
         fanslist.append(fans)
+        
+    else:
+        fanslist.append(5)
+        return
                 
        
 
 #pool = ThreadPool()
 # results = pool.map(spider, urls)
 #print('here!')
+count = 0
 for m in urls:
     number+=1
     spider(m)
+    count+=1
+    #if(count>3):
+    #    break
     #print('here!')
 
 df = pd.DataFrame(fanslist)
-df_csv = pd.read_csv('./tables/popup_fan.csv')
-df_csv['tot_num'] = df
-df_csv.to_csv('./tablesd/popup_fan.csv', index=False, mode= 'w')
+#df_csv = pd.read_excel('tables/data_pts.xlsx')
+data['copyright'] = df
+data.to_excel('tables/data_pts.xlsx', index=False)
